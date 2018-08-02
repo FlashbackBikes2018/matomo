@@ -28,6 +28,11 @@ class SubscriptionModel
     public function unsubscribe($token)
     {
         $details = $this->getSubscription($token);
+
+        if (empty($details)) {
+            return false;
+        }
+
         $email = $details['email'];
 
         $report = Access::doAsSuperUser(function() use ($details) {
